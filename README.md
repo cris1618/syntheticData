@@ -2,4 +2,4 @@
 
 This repository contains the code and documentation for the project.
 
-📄 **[Project Description](Project_Description.pdf)** – Click to view the full project proposal.
+📄 **[Project Description](ProjectDescription.pdf)** – Click to view the full project proposal.
