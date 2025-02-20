@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.responses import PlainTextResponse
 import uvicorn
 import io
@@ -133,8 +133,8 @@ def train_gan_on_data(data_array, num_epochs=50, batch_size=16, latent_dim=64, l
 @app.post("/generate_synthetic")
 async def generate_synthetic(
     file: UploadFile = File(...),
-    num_rows: int = 50,
-    epochs: int = 50
+    num_rows: int = Form(50),
+    epochs: int = Form(50)
 ) -> PlainTextResponse:
     """
     1) Read the CSV from the uploaded file
