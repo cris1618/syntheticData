@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 
+const API_URL = "https://syntheticdata-production.up.railway.app";
+
 function App() {
   const [csvFile, setCsvFile] = useState(null);
   const [fileUploaded, setFileUploaded] = useState(false); // For "File Uploaded!" message
@@ -65,7 +67,7 @@ function App() {
       formData.append("num_rows", parseInt(numRows, 10));
       formData.append("epochs", parseInt(epochs, 10));
 
-      const response = await fetch("http://127.0.0.1:8000/generate_synthetic", {
+      const response = await fetch(`${API_URL}/generate_synthetic`, { //http://127.0.0.1:8000/generate_synthetic
         method: "POST",
         body: formData,
       });
