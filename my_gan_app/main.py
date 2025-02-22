@@ -234,8 +234,10 @@ async def generate_synthetic(
     return PlainTextResponse(csv_text, media_type="text/csv")
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))  # Use Railway's assigned PORT or default to 8000
-    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
+    port = int(os.getenv("PORT", 8000))  # Default to 8000 if PORT is not found
+    uvicorn.run(app, host="0.0.0.0", port=port)
+    #port = int(os.environ.get("PORT", 8000))  # Use Railway's assigned PORT or default to 8000
+    #uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
 
         
 
