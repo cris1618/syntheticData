@@ -1,12 +1,12 @@
 import React, { useState, useRef } from "react";
 
-const API_URL = "https://syntheticdata-production.up.railway.app";
+//const API_URL = "https://syntheticdata-production.up.railway.app"
 
 function App() {
   const [csvFile, setCsvFile] = useState(null);
   const [fileUploaded, setFileUploaded] = useState(false); // For "File Uploaded!" message
   const [numRows, setNumRows] = useState(50);
-  const [epochs, setEpochs] = useState(50);
+  const [categoricalColumns, setcategoricalColumns] = useState("");
   const [responseData, setResponseData] = useState("");
   
   // For our mock progress bar
@@ -65,9 +65,9 @@ function App() {
       const formData = new FormData();
       formData.append("file", csvFile);
       formData.append("num_rows", parseInt(numRows, 10));
-      formData.append("epochs", parseInt(epochs, 10));
+      formData.append("categorical_columns", categoricalColumns);
 
-      const response = await fetch(`${API_URL}/generate_synthetic`, { //http://127.0.0.1:8000/generate_synthetic
+      const response = await fetch(`http://127.0.0.1:8000/generate_synthetic`, {  //${API_URL}/generate_synthetic
         method: "POST",
         body: formData,
       });
@@ -155,13 +155,12 @@ function App() {
 
         {/* Epochs */}
         <div style={styles.field}>
-          <label htmlFor="epochs">Epochs (Bigger # = slower):</label>
+          <label htmlFor="categoricalColumns">Categorical columns (comma separeted):</label>
           <input
-            type="number"
-            id="epochs"
-            value={epochs}
-            onChange={(e) => setEpochs(e.target.value)}
-            min="1"
+            type="text"
+            id="categoricalColumns"
+            value={categoricalColumns}
+            onChange={(e) => setcategoricalColumns(e.target.value)}
             style={styles.input}
           />
         </div>
@@ -214,7 +213,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     position: "relative",  // Needed for overlay
-    backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.9)), url('/thelovers.jpg')",
+    backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.7)), url('/thelovers.jpg')",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
